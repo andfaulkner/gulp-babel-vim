@@ -7,6 +7,7 @@ Description
 This plugin is a simple [gulp](http://gulpjs.com) wrapper for vim
 *(Tested on GNU/Linux and Windows)*
 
+Unlike KabbAmine/gulp-vim, this runs gulpfile.babel.js, rather than regular gulpfile.js - for ECMA6 and ECMA7 gulpfiles.
 
 Installation
 -----------
@@ -21,9 +22,9 @@ And this is the recommended way, use a vim plugin manager:
 
 | Plugin manager                                         | In vimrc                         | Installation command |
 |--------------------------------------------------------|----------------------------------|----------------------|
-| [Vim-plug](https://github.com/junegunn/vim-plug)       | `Plug 'KabbAmine/gulp-vim'`      | `PlugInstall`          |
-| [Vundle](https://github.com/gmarik/Vundle.vim)         | `Plugin 'KabbAmine/gulp-vim'`    | `PluginInstall`        |
-| [NeoBundle](https://github.com/Shougo/neobundle.vim)   | `NeoBundle 'KabbAmine/gulp-vim'` | `NeoBundleInstall`     |
+| [Vim-plug](https://github.com/junegunn/vim-plug)       | `Plug 'andfaulkner/gulp-babel-vim'`      | `PlugInstall`          |
+| [Vundle](https://github.com/gmarik/Vundle.vim)         | `Plugin 'andfaulkner/gulp-babel-vim'`    | `PluginInstall`        |
+| [NeoBundle](https://github.com/Shougo/neobundle.vim)   | `NeoBundle 'andfaulkner/gulp-babel-vim'` | `NeoBundleInstall`     |
 
 Usage
 ---------
