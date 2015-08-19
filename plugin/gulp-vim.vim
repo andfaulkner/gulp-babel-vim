@@ -1,15 +1,16 @@
-" A simple gulp wrapper for vim
+" A simple gulp-babel wrapper for vim
 " Version     : 0.2
 " Creation    : 2015-03-18
 " Last Change : 2015-05-08
-" Maintainer  : Kabbaj Amine <amine.kabb@gmail.com>
+" Maintainer  : Kabbaj Amine <amine.kabb@gmail.com> 
+" Port:	      : port to gulp-babel by Andrew Faulkner <andfaulkner@gmail.com>
 " License     : This file is placed in the public domain.
 
 " Vim options {{{1
-if exists('g:gulp_vim_loaded')
+if exists('g:gulp_babel_vim_loaded')
 	finish
 endif
-let g:gulp_vim_loaded = 1
+let g:gulp_babel_vim_loaded = 1
 
 " To avoid conflict problems.
 let s:saveFileFormat = &fileformat
@@ -21,9 +22,9 @@ set cpoptions&vim
 " COMMANDS
 " =====================================================================
 " {{{1
-command -nargs=* -complete=custom,s:CompleteTaskNames Gulp :echo s:Gulp(<f-args>)
-command -nargs=* -complete=custom,s:CompleteTaskNames GulpExt :call s:GulpExternal(<f-args>)
-command GulpTasks :echo s:GetTaskNames()
+command -nargs=* -complete=custom,s:CompleteTaskNames GulpBabel :echo s:GulpBabel(<f-args>)
+command -nargs=* -complete=custom,s:CompleteTaskNames GulpBabelExt :call s:GulpBabelExternal(<f-args>)
+command GulpBabelTasks :echo s:GetTaskNames()
 " }}}
 
 " VARIABLES
@@ -35,7 +36,7 @@ elseif has('win32')
 	let s:os = 'win32' | let s:sep = '\'
 endif
 " Add --no-color flag if gui vim is used {{{1
-let s:gulpCliFlags = has('gui_running') ? ' --no-color' : ''
+let s:gulpBabelCliFlags = has('gui_running') ? ' --no-color' : ''
 " Rvm hack for unix (Source rvm script file if it exists when using an external terminal) {{{1
 " http://stackoverflow.com/a/8493284
 let s:rvmHack = exists('g:gv_rvm_hack') ? '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" && ' : ''
@@ -71,14 +72,14 @@ let s:termCmd = {
 function s:HasGulpBabelfile() " {{{1
 	return filereadable(getcwd() . s:sep . 'gulpfile.babel.js')
 endfunction
-function s:Gulp(...) " {{{1
-	" Execute gulp with given param(s) as task name(s) (By default is 'default' :D)
+function s:GulpBabel(...) " {{{1
+	" Execute gulp-babel with given param(s) as task name(s) (By default is 'default' :D)
 	
 	let l:task = a:0 >=# 1 ? join(a:000, ' ') : 'default'
 	return s:HasGulpBabelfile() ? system('gulp ' . l:task . s:gulpCliFlags) : 'No gulpfile.babel.js in the current directory'
 endfunction
-function s:GulpExternal(...) " {{{1
-	" Execute gulp with given param(s) as task name(s) in external terminal.
+function s:GulpBabelExternal(...) " {{{1
+	" Execute gulp.babel with given param(s) as task name(s) in external terminal.
 
 	let l:task = a:0 >=# 1 ? join(a:000, ' ') : 'default'
 	if s:HasGulpBabelfile()
