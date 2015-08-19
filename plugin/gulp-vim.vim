@@ -76,7 +76,7 @@ function s:GulpBabel(...) " {{{1
 	" Execute gulp-babel with given param(s) as task name(s) (By default is 'default' :D)
 	
 	let l:task = a:0 >=# 1 ? join(a:000, ' ') : 'default'
-	return s:HasGulpBabelfile() ? system('gulp ' . l:task . s:gulpCliFlags) : 'No gulpfile.babel.js in the current directory'
+	return s:HasGulpBabelfile() ? system('gulp ' . l:task . s:gulpBabelCliFlags) : 'No gulpfile.babel.js in the current directory'
 endfunction
 function s:GulpBabelExternal(...) " {{{1
 	" Execute gulp.babel with given param(s) as task name(s) in external terminal.
