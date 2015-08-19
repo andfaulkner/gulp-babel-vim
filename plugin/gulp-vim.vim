@@ -68,31 +68,31 @@ let s:termCmd = {
 
 " FUNCTIONS
 " =====================================================================
-function s:HasGulpfile() " {{{1
-	return filereadable(getcwd() . s:sep . 'gulpfile.js')
+function s:HasGulpBabelfile() " {{{1
+	return filereadable(getcwd() . s:sep . 'gulpfile.babel.js')
 endfunction
 function s:Gulp(...) " {{{1
 	" Execute gulp with given param(s) as task name(s) (By default is 'default' :D)
 	
 	let l:task = a:0 >=# 1 ? join(a:000, ' ') : 'default'
-	return s:HasGulpfile() ? system('gulp ' . l:task . s:gulpCliFlags) : 'No gulpfile.js in the current directory'
+	return s:HasGulpBabelfile() ? system('gulp ' . l:task . s:gulpCliFlags) : 'No gulpfile.babel.js in the current directory'
 endfunction
 function s:GulpExternal(...) " {{{1
 	" Execute gulp with given param(s) as task name(s) in external terminal.
 
 	let l:task = a:0 >=# 1 ? join(a:000, ' ') : 'default'
-	if s:HasGulpfile()
+	if s:HasGulpBabelfile()
 		exec 'silent :!' . s:termCmd[s:os].h . s:termCmd[s:os].b . 'gulp ' . l:task . s:termCmd[s:os].t
 	else
-		echo 'No gulpfile.js in the current directory'
+		echo 'No gulpfile.babel.js in the current directory'
 	endif
 endfunction
 function s:GetTaskNames() " {{{1
-	" Return a string list of task names from gulpfile.js (If he exists).
+	" Return a string list of task names from gulpfile.babel.js (If he exists).
 
-	if s:HasGulpfile()
+	if s:HasGulpBabelfile()
 		let l:tasks = []
-		for l:line in readfile('gulpfile.js')
+		for l:line in readfile('gulpfile.babel.js')
 			" Get only lines with gulp.task
 			if l:line =~# '^gulp.task'
 				" Get task name & add it to a list of tasks
@@ -102,7 +102,7 @@ function s:GetTaskNames() " {{{1
 		endfor
 		return join(l:tasks, "\n") . "\n"
 	else
-		return 'No gulpfile.js in the current directory'
+		return 'No gulpfile.babel.js in the current directory'
 	endif
 
 endfunction
